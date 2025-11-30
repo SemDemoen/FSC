@@ -25,9 +25,99 @@
 
 
     <div class="content">
-        <h1>MD5</h1>
+        <section class="card" id="intro">
+            <h1>MD5</h1>
+            <p>MD5 is a 128-bit digest hash function designed in 1992. It is <strong>fast</strong> and was widely used
+                for checksums, file integrity, and legacy authentication schemes. However, MD5 is
+                <strong>cryptographically broken</strong>: collision attacks are practical and several real-world
+                exploits have been demonstrated.
+            </p>
+
+
+            <div class="img-placeholder"> <!-- ADD IMAGE: md5-overview.png -->
+                <img src="images/MD5--Hashing.png" alt="md5 hashing">
+            </div>
+
+
+            <h2>Quick facts</h2>
+            <table>
+                <tr>
+                    <th>Digest size</th>
+                    <td>128 bits</td>
+                </tr>
+                <tr>
+                    <th>Design</th>
+                    <td>Merkle–Damgård (compression function)</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>Deprecated for security; OK for non-adversarial checksums</td>
+                </tr>
+            </table>
+        </section>
+
         <p>Description of MD5, its use cases, and its known vulnerabilities.</p>
-    </div>
+
+
+        <h2>What is MD5?</h2>
+        <p>MD5 (Message Digest Algorithm 5) is a cryptographic hash function developed in 1991 by Ronald Rivest. It
+            produces a 128‑bit hash value typically represented as a 32‑character hexadecimal number. MD5 was widely
+            used for file integrity checking, digital signatures, and password hashing.</p>
+
+
+        <h2>How MD5 Works</h2>
+        <p>MD5 processes input in 512‑bit blocks and outputs a fixed 128‑bit digest. The algorithm uses nonlinear
+            functions, modular addition, and bitwise operations across four main rounds. Although designed to be
+            collision‑resistant, weaknesses were found over time.</p>
+
+
+        <h2>Weaknesses of MD5</h2>
+        <ul>
+            <li><strong>Collision attacks:</strong> Two different inputs can produce the same hash.</li>
+            <li><strong>Preimage weaknesses:</strong> MD5 does not provide strong resistance against reverse hashing
+                attempts.</li>
+            <li><strong>Fast computation:</strong> Makes brute‑force and dictionary attacks significantly easier.</li>
+        </ul>
+
+
+        <h2>Famous MD5 Attacks</h2>
+        <p>One of the most famous attacks was created by Czech cryptologist <strong>doc. Vlastimil Klíma</strong>, who
+            demonstrated a practical method to generate MD5 collisions in minutes.</p>
+        <p>Other widely reported cases include malware authors using MD5 collisions to create fake certificates, and
+            researchers generating two PDFs with identical MD5 checksums.</p>
+
+
+        <h2>MD5 in Practice</h2>
+        <p>Today, MD5 is considered <strong>broken and unsuitable</strong> for any security‑related use. However, it is
+            still encountered in legacy systems, simple file checksums, or as part of malware signatures.</p>
+
+
+        <h2>Hashcat Example</h2>
+        <p>You can test MD5 password cracking using Hashcat:</p>
+        <p>First we choose a password and hash it using MD5</p>
+        <img src="images/generating_hashes.png" alt="generating hashes">
+        <p>For this demo we will be using the second one.</p>
+        <p>After hashing i placed the hash in a file called <strong>md5.txt</strong></p>
+        <h3>Dictionary attack</h3>
+        <p>The first attack we will do on the md5 function is a dictionairy attack. It can be done using the following code: <code></code></p>
+        <img src="images/md5_cracked_dictionar.png" alt="">
+        <p><strong>-m 0</strong> = MD5 mode<br><strong>rockou.txt</strong> = dictionary used for the attack</p>
+
+        <h3>Bruteforce attack</h3>
+        <p>The second attack we will do on the md5 function is a brutefore attack. It can be done using the following code: <code></code></p>
+        <img src="images/md5_brute.png" alt="">
+        <p><strong>-m 0</strong> = MD5 mode<br><strong>-a 3</strong> = bruteforce / Mask attack<br><strong>?1?1?1?1?1?1?1?1</strong> = 8 lowercase characters + digits</p>
+
+        <h3>Hybrid attack (Dictionary + Mask)</h3>
+        <p>The third attack is a combination of the previous 2. Here we will use a wordlist, in this case rockyou.txt. Instead of trying just the wordlist it will also add 2 digits at the end of each word. It can be done using the following code: <code></code></p>
+        <img src="images/md5_hybrid.png" alt="">
+        <p><strong>-m 0</strong> = MD5 mode<br><strong>-a 6</strong> = Hybrid attack<br><strong>?d?d</strong> = appends 2 digits</p>
+
+        <h3>Rule-based Attack (Mutations)</h3>
+        <p>The last attack we will use is an extension of the hybrid attack. Instead of adding just one extra rule we can add a whole file of them. We chose to use the list that automatticaly comes with hashcat. It can be done using the following code: <code></code></p>
+        <img src="images/md5_rulebased.png" alt="">
+        <p><strong>-m 0</strong> = MD5 mode<br><strong>/usr/share/hashcat/rules/best64.rule</strong> = Path to rule file</p>
+
 
 </body>
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHA Family</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-title">
+            <span class="title-main">Security in Communications</span>
+            <span class="title-sub">Project</span>
+        </div>
+
+        <a href="index.html">Introduction</a>
+        <a href="modern.html">Modern Hash Functions</a>
+        <a href="md5.html">MD5</a>
+        <a href="sha.html">SHA Family</a>
+        <a href="blake2.html">BLAKE2</a>
+        <a href="attacks.html">Password Hash Attacks</a>
+    </div>
+
+
+    <div class="content">
+        <h1>SHA Family</h1>
+
+        <h2>SHA-1</h2>
+        <p>SHA-1 was widely used for years but is now considered broken. In 2017, Google and CWI Amsterdam demonstrated
+            the first practical SHA-1 collision attack (SHAttered).</p>
+
+        <h2>SHA-2</h2>
+        <p>SHA-2 (SHA-256, SHA-512, etc.) is currently secure and remains the standard in most systems, including TLS,
+            digital signatures, and blockchain applications.</p>
+
+        <h2>SHA-3</h2>
+        <p>SHA-3, based on the Keccak sponge construction, is a newer hash standard designed as a fallback in case
+            weaknesses in SHA-2 were ever discovered.</p>
+
+        <h2>Known Vulnerabilities</h2>
+        <ul>
+            <li><strong>SHA-1:</strong> Collision attacks (SHAttered), chosen-prefix attacks.</li>
+            <li><strong>SHA-2:</strong> No practical attacks known; only theoretical analysis.</li>
+            <li><strong>SHA-3:</strong> No practical vulnerabilities; designed differently to avoid weaknesses of
+                Merkle–Damgård construction.</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>

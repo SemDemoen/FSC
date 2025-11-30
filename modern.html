@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Hash Functions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-title">
+            <span class="title-main">Security in Communications</span>
+            <span class="title-sub">Project</span>
+        </div>
+
+        <a href="index.html">Introduction</a>
+        <a href="modern.html">Modern Hash Functions</a>
+        <a href="md5.html">MD5</a>
+        <a href="sha.html">SHA Family</a>
+        <a href="blake2.html">BLAKE2</a>
+        <a href="attacks.html">Password Hash Attacks</a>
+    </div>
+
+
+    <div class="content">
+        <h1>Modern Hash Functions</h1>
+        <p>Modern cryptographic hash functions are designed to be secure against known attack techniques and efficient
+            on modern hardware. They aim to provide strong collision resistance, preimage resistance, and protection
+            against length-extension attacks.</p>
+
+        <h2>SHA-2 Family</h2>
+        <p>The SHA-2 family includes SHA-224, SHA-256, SHA-384, and SHA-512. These functions are widely used today in
+            TLS, SSL, digital signatures, and blockchain systems such as Bitcoin. They are currently considered secure
+            with no practical attacks known.</p>
+
+        <h2>SHA-3 (Keccak)</h2>
+        <p>SHA-3 was selected through an open competition organized by NIST. Based on the Keccak sponge construction, it
+            differs significantly from SHA-1 and SHA-2. It offers strong security margins, resistance to
+            length-extension attacks, and additional variants such as SHAKE128 and SHAKE256.</p>
+
+        <h2>BLAKE & BLAKE2</h2>
+        <p>The original BLAKE hash function was a finalist in the SHA-3 competition. Its successor, BLAKE2, provides
+            even better performance and flexibility while maintaining the same strong security guarantees. BLAKE2 is
+            faster than MD5, SHA-1, and SHA-2 on most software platforms.</p>
+
+        <h2>Other Modern Hash Functions</h2>
+        <ul>
+            <li><strong>Whirlpool:</strong> A 512-bit hash based on a modified AES-like design.</li>
+            <li><strong>Skein:</strong> Another SHA-3 finalist with a tweakable design for added flexibility.</li>
+            <li><strong>RIPEMD-160:</strong> Still used in some applications such as Bitcoin addresses, though less
+                common today.</li>
+        </ul>
+
+        <h2>Key Security Properties</h2>
+        <ul>
+            <li><strong>Collision resistance:</strong> Hard to find two different inputs with the same hash.</li>
+            <li><strong>Preimage resistance:</strong> Hard to derive the original message from its hash.</li>
+            <li><strong>Second preimage resistance:</strong> Hard to find a different message with the same hash as a
+                given message.</li>
+            <li><strong>Resistance to length-extension attacks:</strong> Many modern hashes (e.g., SHA-3, BLAKE2) avoid
+                this issue.</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>

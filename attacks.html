@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Hash Attacks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-title">
+            <span class="title-main">Security in Communications</span>
+            <span class="title-sub">Project</span>
+        </div>
+
+        <a href="index.html">Introduction</a>
+        <a href="modern.html">Modern Hash Functions</a>
+        <a href="md5.html">MD5</a>
+        <a href="sha.html">SHA Family</a>
+        <a href="blake2.html">BLAKE2</a>
+        <a href="attacks.html">Password Hash Attacks</a>
+    </div>
+
+
+    <div class="content">
+        <h1>Password Hash Attacks</h1>
+        <p>This page describes common attacks on password hashes such as brute-force, dictionary attacks, rainbow
+            tables, and GPU-accelerated cracking using tools like Hashcat.</p>
+
+        <h2>Brute Force Attacks</h2>
+        <p>Brute force attempts every possible character combination until a matching hash is found. Strong hashing
+            algorithms and long passwords reduce feasibility.</p>
+
+        <h2>Dictionary Attacks</h2>
+        <p>Attackers use wordlists containing common passwords or leaked password databases to quickly test likely
+            matches.</p>
+
+        <h2>Rainbow Table Attacks</h2>
+        <p>Rainbow tables store precomputed hashes for huge sets of passwords, allowing attackers to reverse hashes
+            rapidly — but only if the hash is unsalted.</p>
+
+        <h2>Hashcat</h2>
+        <p>Hashcat is a GPU-accelerated password cracking tool capable of trying billions of hashes per second. It
+            supports dictionary, hybrid, brute force, and rule-based attacks.</p>
+
+        <h2>Salting</h2>
+        <p>Adding a unique, random salt to each password prevents rainbow table attacks and makes cracking much harder,
+            as each salted hash must be cracked individually.</p>
+    </div>
+
+</body>
+
+</html>

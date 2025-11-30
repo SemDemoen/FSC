@@ -28,25 +28,115 @@
     <div class="content">
         <h1>SHA Family</h1>
 
-        <h2>SHA-1</h2>
-        <p>SHA-1 was widely used for years but is now considered broken. In 2017, Google and CWI Amsterdam demonstrated
-            the first practical SHA-1 collision attack (SHAttered).</p>
+        <section class="card" id="overview">
+            <h2>Overview</h2>
+            <p>SHA stands for Secure Hash Algorithm. The family includes several standards: <strong>SHA-1</strong>
+                (legacy), <strong>SHA-2</strong> (SHA-224/256/384/512) and <strong>SHA-3</strong> (Keccak). They output
+                fixed-length digests and are used for integrity, signatures, and key derivation.</p>
+            <div class="img"><Img src="images/sha1-sha2-sha256-sha512-hash-algorithms-jpg.webp"></Img></div>
 
-        <h2>SHA-2</h2>
-        <p>SHA-2 (SHA-256, SHA-512, etc.) is currently secure and remains the standard in most systems, including TLS,
-            digital signatures, and blockchain applications.</p>
 
-        <h2>SHA-3</h2>
-        <p>SHA-3, based on the Keccak sponge construction, is a newer hash standard designed as a fallback in case
-            weaknesses in SHA-2 were ever discovered.</p>
+            <h3>Core properties</h3>
+            <ul>
+                <li>Preimage resistance</li>
+                <li>Second-preimage resistance</li>
+                <li>Collision resistance</li>
+                <li>Avalanche effect</li>
+            </ul>
+        </section>
 
-        <h2>Known Vulnerabilities</h2>
-        <ul>
-            <li><strong>SHA-1:</strong> Collision attacks (SHAttered), chosen-prefix attacks.</li>
-            <li><strong>SHA-2:</strong> No practical attacks known; only theoretical analysis.</li>
-            <li><strong>SHA-3:</strong> No practical vulnerabilities; designed differently to avoid weaknesses of
-                Merkle–Damgård construction.</li>
-        </ul>
+
+        <aside class="card" id="sha1">
+            <h2>SHA-1 (legacy)</h2>
+            <p><strong>Digest:</strong> 160 bits. Designed in 1995. In 2017, researchers produced a practical collision
+                (SHAttered), proving SHA-1 is no longer safe for collision-resistant applications like code signing and
+                certificates.</p>
+            <div class="img-placeholder"><img src="images/sha1-collision-attack.png" alt=""></div>
+            <p class="note">Avoid SHA-1 for digital signatures or certificate hashing. Use SHA-256 or stronger instead.
+            </p>
+        </aside>
+
+
+        <section class="card" id="sha2">
+            <h2>SHA-2 (current standard)</h2>
+            <p>SHA-2 includes SHA-224, SHA-256, SHA-384 and SHA-512. These remain secure for most uses as of 2025.
+                SHA-256 is widely used in TLS, blockchain, and file integrity checks.</p>
+
+
+            <h3>Length-extension</h3>
+            <p>SHA-2 uses a Merkle–Damgård-like structure and is vulnerable to length-extension attacks when used
+                improperly (e.g., naive construct H(secret || message)). Use HMAC or SHA-3 to avoid the issue.</p>
+
+
+            <h3>Hashcat modes</h3>
+            <table>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Hashcat mode</th>
+                </tr>
+                <tr>
+                    <td>SHA-1</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>SHA-224</td>
+                    <td>5701</td>
+                </tr>
+                <tr>
+                    <td>SHA-256</td>
+                    <td>1400</td>
+                </tr>
+                <tr>
+                    <td>SHA-384</td>
+                    <td>10700</td>
+                </tr>
+                <tr>
+                    <td>SHA-512</td>
+                    <td>1700</td>
+                </tr>
+            </table>
+
+
+            <div class="img-placeholder"><img src="images/sha256-2-jpg.jpg" alt=""></div>
+        </section>
+
+
+        <section class="card" id="sha3">
+            <h2>SHA-3 (Keccak)</h2>
+            <p>SHA-3 is based on the sponge construction (Keccak). It resists length-extension and provides an
+                alternative design to SHA-2. BLAKE2/BLAKE3 are also modern alternatives offering high performance.</p>
+            <div class="img-placeholder"><img src="images/550px-Sha-3_2.png" alt=""></div>
+        </section>
+
+
+        <section class="card" id="lab">
+            <h2>Hashcat Example</h2>
+            <p>You can test SHA-256 password cracking using Hashcat:</p>
+            <p>First we choose a password and hash it using SHA-256</p>
+            <img src="images/generating_hashes.png" alt="generating hashes">
+            <p>For this demo we will be using the last one. It is important to use the option
+                <code>--potfile-disable</code> if you have cracked the hash before. Hashcat uses a memory and will
+                search it first for a hash. Using this options ensures the hash is cracked again with the prefered
+                attack.
+            </p>
+            <p>After hashing I placed the hash in a file called <strong>sha256.txt</strong>.
+                The attacks we will be using will be the same as for MD5. For that reason i wont explain every detail.
+                The only big difference is instead of using <code>-m 0</code> we will be using <code>-m 1400</code>
+            </p>
+
+            <h3>Dictionary attack</h3>
+            <img src="images/sha256_cracked_dictionary.png" alt="">
+
+            <h3>Bruteforce attack</h3>
+            <img src="images/sha256_brute.png" alt="">
+
+            <h3>Hybrid attack</h3>
+            <img src="images/sha256_hybrid.png" alt="">
+
+            <h3>Rule-based attack</h3>
+            <img src="images/sha256_rule.png" alt="">
+
+        </section>
     </div>
 
 </body>

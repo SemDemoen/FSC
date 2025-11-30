@@ -96,8 +96,8 @@
         <p>You can test MD5 password cracking using Hashcat:</p>
         <p>First we choose a password and hash it using MD5</p>
         <img src="images/generating_hashes.png" alt="generating hashes">
-        <p>For this demo we will be using the second one.</p>
-        <p>After hashing i placed the hash in a file called <strong>md5.txt</strong></p>
+        <p>For this demo we will be using the second one. It is important to use the option <code>--potfile-disable</code> if you have cracked the hash before. Hashcat uses a memory and will search it first for a hash. Using this options ensures the hash is cracked again with the prefered attack.</p>
+        <p>After hashing I placed the hash in a file called <strong>md5.txt</strong></p>
         <h3>Dictionary attack</h3>
         <p>The first attack we will do on the md5 function is a dictionairy attack. It can be done using the following code: <code></code></p>
         <img src="images/md5_cracked_dictionar.png" alt="">

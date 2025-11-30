@@ -6,28 +6,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+    </style>
 </head>
 
 <body>
+
     <div class="sidebar">
         <div class="sidebar-title">
             <span class="title-main">Security in Communications</span>
             <span class="title-sub">Project</span>
         </div>
 
-        <a href="index.html">Introduction</a>
+        <a href="index.html" class="active">Introduction</a>
         <a href="modern.html">Modern Hash Functions</a>
         <a href="md5.html">MD5</a>
         <a href="sha.html">SHA Family</a>
-        <a href="blake2.html">BLAKE2</a>
+        <a href="bcrypt.html">Bcrypt</a>
         <a href="attacks.html">Password Hash Attacks</a>
     </div>
 
-
-
     <div class="content">
-        <h1>Introduction</h1>
-        <p>Overview of hash functions and their key properties.</p>
+        <h1>Introduction to Hash Functions</h1>
+
+        <p>Hash functions are one of the most fundamental concepts in computer security. At their core, they take an
+            input of arbitrary length, such as: a password, a file, or a message, and produce a fixed-length output
+            called a <strong>hash</strong> or <strong>digest</strong>. This output acts as a digital fingerprint of
+            the original data. Any small change in the input, even just a single character, will produce a drastically
+            different hash. This property is called the <strong>avalanche effect</strong> and is crucial for
+            detecting tampering or unauthorized modifications.</p>
+
+        <p>Hash functions are deterministic, meaning that the same input will always produce the same hash. They are
+            designed to be fast, efficient, and irreversible, so it is practically impossible to derive the original
+            input from its hash alone. This makes them invaluable in password storage, data integrity verification,
+            and cryptographic protocols.</p>
+
+        <div class="critical-visual fancy-diagram">
+            <div class="fancy">
+                <div class="icon-circle">📄</div>
+                <strong>Input</strong>
+                <p class="small-note">"password123"</p>
+            </div>
+            <div class="connector">+</div>
+            <div class="fancy">
+                <div class="icon-circle">🔒</div>
+                <strong>Hash Function</strong>
+                <p class="small-note">H()</p>
+            </div>
+            <div class="connector">=</div>
+            <div class="fancy">
+                <div class="icon-circle">💾</div>
+                <strong>Output Hash</strong>
+                <p class="small-note">5f4dcc3b5aa765d61d8327deb882cf99</p>
+            </div>
+        </div>
+
+        <h2>Key Properties of Hash Functions</h2>
+        <p>Understanding the core properties of hash functions helps explain why they are so critical in
+            cybersecurity. First, they are <strong>deterministic</strong>: identical inputs produce identical hashes.
+            Second, they exhibit <strong>preimage resistance</strong>, making it extremely difficult to recover the
+            original input from the hash. Third, they provide <strong>second preimage resistance</strong>, ensuring
+            that finding a different input producing the same hash is computationally infeasible.</p>
+
+        <p>Another crucial property is <strong>collision resistance</strong>, which prevents two different inputs
+            from producing the same hash. Finally, hash functions are designed for <strong>fast computation</strong>
+            and must maintain the <strong>avalanche effect</strong>, where small changes in input drastically alter
+            the hash output. These properties collectively ensure integrity, security, and reliability.</p>
+
+        <h2>Applications of Hash Functions</h2>
+        <p>Hash functions are used in countless areas of computer security. One of the most common is password
+            storage. Instead of storing plaintext passwords, systems store hashes, which makes it difficult for
+            attackers to retrieve the original passwords even if the database is stolen. This is a critical layer of
+            protection for user data.</p>
+
+        <p>Hashes are also widely used for data integrity verification. Files, software downloads, and messages can
+            be checked against their hash to ensure they have not been modified or tampered with. Digital signatures
+            rely on hashes to authenticate messages and confirm that they come from the claimed sender.</p>
+
+        <p>In cryptocurrencies like Bitcoin, hashes link blocks of transactions in a blockchain. The cryptographic
+            properties of hash functions prevent tampering, ensure the integrity of the chain, and make altering
+            transaction history computationally infeasible. Hash functions are also used for checksums, error
+            detection, and other cryptographic protocols.</p>
+
+        <h2>Why Hash Functions Are Critical</h2>
+        
+
+        <div class="critical-visual attack-diagram-fixed">
+            <p>Weak or broken hash functions can compromise entire systems. Attackers may exploit collisions or reverse
+            hashes to gain unauthorized access, forge documents, or manipulate data. This is why modern cryptography
+            uses secure hash functions with strong mathematical properties, making attacks extremely costly or
+            impossible. <i>hover over a box to get more info</i></p>
+            <div class="attack-box-fixed">
+                Weak or Broken Hash
+                <span class="attack-tooltip-fixed">
+                    Weak or outdated hash functions can be attacked easily.
+                </span>
+            </div>
+
+            <div class="attack-arrow-fixed">+</div>
+
+            <div class="attack-box-fixed">
+                Attacker Produces Collisions
+                <span class="attack-tooltip-fixed">
+                    An attacker can produce collisions or reverse the hash to find the original data.
+                </span>
+            </div>
+
+            <div class="attack-arrow-fixed">=</div>
+
+            <div class="attack-box-fixed">
+                Consequences
+                <span class="attack-tooltip-fixed">
+                    Bypass authentication, forge documents, manipulate data.
+                </span>
+            </div>
+        </div>
+
+
+        <h2>Summary</h2>
+        <p>Hash functions are foundational to cybersecurity. They provide unique fingerprints for data, protect
+            passwords, enable secure communication, and maintain integrity across systems. Understanding their
+            properties, applications, and vulnerabilities is essential for anyone working in information security or
+            cryptography.</p>
+
+        <p>In the following sections, we will explore modern hash functions, analyze older algorithms like MD5, examine
+            the SHA family, and discuss advanced password hashing techniques like Bcrypt. By the end of this series,
+            you will have a solid understanding of why hash functions are indispensable in securing digital
+            information.</p>
+
     </div>
 
 </body>

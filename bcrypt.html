@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bcrypt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-title">
+        <span class="title-main">Security in Communications</span>
+        <span class="title-sub">Fundamentals Project</span>
+    </div>
+
+    <a href="index.html">Introduction</a>
+    <a href="modern.html">Modern Hash Functions</a>
+    <a href="md5.html">MD5</a>
+    <a href="sha.html">SHA Family</a>
+    <a href="bcrypt.html" class="active">Bcrypt</a>
+    <a href="attacks.html">Password Hash Attacks</a>
+</div>
+
+<div class="content">
+    <h1>Bcrypt</h1>
+
+    <p>Bcrypt is a password hashing function designed to store passwords securely. Unlike general-purpose hash functions such as SHA or MD5, Bcrypt is intentionally slow and can be configured to be more computationally expensive over time, which protects against brute-force attacks.</p>
+
+    <h2>How Bcrypt Works</h2>
+    <p>Bcrypt is based on the Blowfish cipher. It applies multiple rounds of key expansion and encryption to produce a hash. Each password hash includes a <strong>salt</strong> and a <strong>cost factor</strong> that determines the number of rounds and thus the computation time.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+        <li><strong>Salting:</strong> Each password has a unique salt, preventing rainbow table attacks.</li>
+        <li><strong>Configurable cost:</strong> The number of hashing rounds can be increased as hardware improves.</li>
+        <li><strong>Resistance to brute-force:</strong> Slower hashing makes large-scale attacks more difficult.</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <p>Bcrypt is widely used in modern web applications for password storage. Common libraries exist for PHP, Python, JavaScript, and many other languages. A typical hashed password looks like this:</p>
+    <pre>$2b$12$N9qo8uLOickgx2ZMRZo5i.uJxY5a5IXrF2Gx0zFZ1Ijq5g2d5Vf1K</pre>
+
+    <h2>Security Considerations</h2>
+    <ul>
+        <li>Always use a unique salt for each password.</li>
+        <li>Choose a sufficiently high cost factor based on your server capabilities.</li>
+        <li>Regularly update the cost factor as hardware improves.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>Bcrypt is currently considered a strong choice for password hashing due to its configurable cost, salting, and resistance to brute-force attacks. It is a practical solution for secure user authentication.</p>
+
+</div>
+
+</body>
+</html>

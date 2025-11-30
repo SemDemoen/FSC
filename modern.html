@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Hash Functions</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add extra spacing for subheaders */
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        /* Optional: slightly larger paragraphs for readability */
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,52 +30,148 @@
         </div>
 
         <a href="index.html">Introduction</a>
-        <a href="modern.html">Modern Hash Functions</a>
+        <a href="modern.html" class="active">Modern Hash Functions</a>
         <a href="md5.html">MD5</a>
         <a href="sha.html">SHA Family</a>
-        <a href="blake2.html">BLAKE2</a>
+        <a href="bcrypt.html">Bcrypt</a>
         <a href="attacks.html">Password Hash Attacks</a>
     </div>
 
-
     <div class="content">
         <h1>Modern Hash Functions</h1>
-        <p>Modern cryptographic hash functions are designed to be secure against known attack techniques and efficient
-            on modern hardware. They aim to provide strong collision resistance, preimage resistance, and protection
-            against length-extension attacks.</p>
 
-        <h2>SHA-2 Family</h2>
-        <p>The SHA-2 family includes SHA-224, SHA-256, SHA-384, and SHA-512. These functions are widely used today in
-            TLS, SSL, digital signatures, and blockchain systems such as Bitcoin. They are currently considered secure
-            with no practical attacks known.</p>
+        <p><strong>Hash functions</strong> are a core building block of cybersecurity. At a basic level, they convert
+            inputs of arbitrary length like passwords, files, or messages, into fixed-length strings called
+            <strong>hashes</strong> or <strong>digests</strong>. These functions are used to ensure data integrity,
+            protect passwords, and secure communications. Modern hash functions improve on older algorithms like MD5
+            and SHA-1, which are now considered insecure.</p>
 
-        <h2>SHA-3 (Keccak)</h2>
-        <p>SHA-3 was selected through an open competition organized by NIST. Based on the Keccak sponge construction, it
-            differs significantly from SHA-1 and SHA-2. It offers strong security margins, resistance to
-            length-extension attacks, and additional variants such as SHAKE128 and SHAKE256.</p>
+        <p>Modern hash functions are designed to resist a variety of attacks. They prevent collisions, where two
+            different inputs produce the same hash, and preimage attacks, where attackers attempt to reverse a hash
+            to find the original input. Additionally, they are efficient and scalable, allowing systems to hash large
+            amounts of data quickly without performance issues.</p>
 
-        <h2>BLAKE & BLAKE2</h2>
-        <p>The original BLAKE hash function was a finalist in the SHA-3 competition. Its successor, BLAKE2, provides
-            even better performance and flexibility while maintaining the same strong security guarantees. BLAKE2 is
-            faster than MD5, SHA-1, and SHA-2 on most software platforms.</p>
+        <p>In practice, this means that when you store user passwords, verify software downloads, or sign digital
+            documents, modern hash functions ensure that even small changes to the data are easily detected and that
+            attackers cannot reverse-engineer the input without tremendous computational effort.</p>
 
-        <h2>Other Modern Hash Functions</h2>
+        <div class="critical-visual fancy-diagram">
+            <div class="fancy">
+                <div class="icon-circle">📄</div>
+                <strong>Input</strong>
+                <p class="small-note">"password123"</p>
+            </div>
+            <div class="connector">+</div>
+            <div class="fancy">
+                <div class="icon-circle">🔒</div>
+                <strong>Hash Function</strong>
+                <p class="small-note">H()</p>
+            </div>
+            <div class="connector">=</div>
+            <div class="fancy">
+                <div class="icon-circle">💾</div>
+                <strong>Output Hash</strong>
+                <p class="small-note">5f4dcc3b5aa765d61d8327deb882cf99</p>
+            </div>
+        </div>
+
+        <h2>Collision Resistance</h2>
+        <p><strong>Collision resistance</strong> means it is computationally infeasible to find two distinct inputs
+            that produce the same hash. This property is essential in preventing attacks where an attacker could
+            substitute malicious data without being detected. For instance, if a software update uses a hash to verify
+            integrity, a collision could allow attackers to replace the update with malware that hashes to the same
+            value.</p>
+
+        <p>Modern algorithms like SHA-256 and SHA-3 are specifically designed to avoid collisions. Older algorithms,
+            such as MD5, have been shown to produce collisions in practical scenarios, which is why they are
+            deprecated. The design of SHA-3, for example, is based on the Keccak algorithm, which uses a sponge
+            construction to ensure high resistance to collision attacks even against advanced adversaries.</p>
+
+        <h2>Preimage Resistance</h2>
+        <p><strong>Preimage resistance</strong> ensures that given a hash, it is extremely difficult to find any input
+            that produces it. This is especially important for password storage. If a database of hashed passwords is
+            leaked, preimage resistance ensures attackers cannot efficiently determine the original passwords.</p>
+
+        <p>This property is also critical for digital signatures and integrity verification. Suppose a digital
+            signature depends on a hash of a document. Preimage resistance guarantees that attackers cannot forge a
+            document that matches an existing hash, maintaining authenticity and trust in the system.</p>
+
+        <h2>Salting</h2>
+        <p><strong>Salting</strong> strengthens password security by adding a unique, random string to each password
+            before hashing. Even if two users choose the same password, their hashes will be different due to the
+            salt. Salting is one of the most effective defenses against rainbow table attacks, which rely on precomputed
+            hashes of common passwords.</p>
+
+        <p>Salting forces attackers to brute-force each password individually, significantly increasing the time
+            required to compromise an entire password database. When combined with cost factors or multiple hashing
+            rounds, salting provides a strong layer of defense against modern cracking techniques.</p>
+
+        <div class="salt-example fancy-diagram">
+            <div class="fancy">
+                <div class="icon-circle">📄</div>
+                <strong>Password</strong>
+                <p class="small-note">"password123"</p>
+            </div>
+            <div class="plus">+</div>
+            <div class="fancy">
+                <div class="icon-circle">✨</div>
+                <strong>Salt</strong>
+                <p class="small-note">"Xy9@7"</p>
+            </div>
+            <div class="arrow">=</div>
+            <div class="fancy">
+                <div class="icon-circle">💾</div>
+                <strong>Hash</strong>
+                <p class="small-note">a1b2c3d4e5f67890...</p>
+            </div>
+        </div>
+
+        <h2>Modern Hash Function Examples</h2>
+        <p>There are several modern hash functions widely used in computer security:</p>
+
         <ul>
-            <li><strong>Whirlpool:</strong> A 512-bit hash based on a modified AES-like design.</li>
-            <li><strong>Skein:</strong> Another SHA-3 finalist with a tweakable design for added flexibility.</li>
-            <li><strong>RIPEMD-160:</strong> Still used in some applications such as Bitcoin addresses, though less
-                common today.</li>
+            <li><strong>SHA-2 family:</strong> SHA-224, SHA-256, SHA-384, and SHA-512 are highly secure and used in TLS,
+                blockchain, and digital signatures. They remain resistant to both collision and preimage attacks.</li>
+            <li><strong>SHA-3:</strong> A newer standard using the Keccak algorithm, designed to avoid weaknesses
+                found in SHA-1 and SHA-2. SHA-3 provides a different internal structure, improving security in certain
+                use cases.</li>
+            <li><strong>Bcrypt:</strong> Specifically designed for password hashing. It includes a unique salt for
+                each password and configurable hashing rounds, making brute-force attacks slower and more
+                computationally expensive.</li>
         </ul>
 
-        <h2>Key Security Properties</h2>
-        <ul>
-            <li><strong>Collision resistance:</strong> Hard to find two different inputs with the same hash.</li>
-            <li><strong>Preimage resistance:</strong> Hard to derive the original message from its hash.</li>
-            <li><strong>Second preimage resistance:</strong> Hard to find a different message with the same hash as a
-                given message.</li>
-            <li><strong>Resistance to length-extension attacks:</strong> Many modern hashes (e.g., SHA-3, BLAKE2) avoid
-                this issue.</li>
-        </ul>
+        <p>Using these modern hash functions, along with proper salting and hashing rounds, ensures that sensitive
+            information like passwords remains secure even if attackers gain access to the database.</p>
+
+        <div class="critical-visual fancy-diagram">
+            <div class="fancy">
+                <div class="icon-circle">🗃️</div>
+                <strong>MD5</strong>
+                <p class="small-note">128-bit, insecure</p>
+            </div>
+            <div class="connector">→</div>
+            <div class="fancy">
+                <div class="icon-circle">🔑</div>
+                <strong>SHA-2</strong>
+                <p class="small-note">Secure, widely used</p>
+            </div>
+            <div class="connector">→</div>
+            <div class="fancy">
+                <div class="icon-circle">🚀</div>
+                <strong>SHA-3</strong>
+                <p class="small-note">Modern design, collision-resistant</p>
+            </div>
+        </div>
+
+        <p>This diagram illustrates the progression from older, insecure hash functions to modern, secure designs.
+            Choosing the correct algorithm is critical for protecting sensitive data and maintaining trust in digital
+            systems.</p>
+
+        <p>In summary, modern hash functions are robust, versatile, and essential for securing digital systems.
+            Understanding collision resistance, preimage resistance, and the importance of salting is fundamental for
+            anyone working with password security, digital signatures, or cryptographic protocols. Combining these
+            techniques creates systems that remain secure even against highly capable adversaries.</p>
+
     </div>
 
 </body>

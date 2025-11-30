@@ -20,35 +20,138 @@
         <a href="modern.html">Modern Hash Functions</a>
         <a href="md5.html">MD5</a>
         <a href="sha.html">SHA Family</a>
-        <a href="blake2.html">BLAKE2</a>
-        <a href="attacks.html">Password Hash Attacks</a>
+        <a href="bcrypt.html">Bcrypt</a>
+        <a href="attacks.html" class="active">Password Hash Attacks</a>
     </div>
-
 
     <div class="content">
         <h1>Password Hash Attacks</h1>
-        <p>This page describes common attacks on password hashes such as brute-force, dictionary attacks, rainbow
-            tables, and GPU-accelerated cracking using tools like Hashcat.</p>
 
+        <p>Password hashing is a core defense mechanism used to protect stored passwords. However, attackers have developed
+            techniques to guess, reverse, or bypass hashes using computing power, leaked databases, and precomputed lookup tables.
+            Understanding these methods is essential for understanding why modern password hashing must include <strong>salts</strong>,
+            <strong>slow algorithms</strong>, and <strong>strong password policies</strong>.</p>
+
+        <!-- BRUTE FORCE -->
         <h2>Brute Force Attacks</h2>
-        <p>Brute force attempts every possible character combination until a matching hash is found. Strong hashing
-            algorithms and long passwords reduce feasibility.</p>
+        <p>A brute force attack is the most straightforward password‑cracking method: the attacker systematically tries
+            <strong>every possible password combination</strong> until the correct one is found. Although simple, it becomes extremely
+            powerful when combined with modern hardware and optimized cracking tools.</p>
 
+        <p>The time required for brute force grows exponentially with the password length. For example, a 4‑character lowercase password
+            has only 26⁴ possibilities, but an 8‑character password using letters, numbers, and symbols can have over 6×10¹⁵ possibilities.
+            Because hash functions like MD5 or SHA‑1 are extremely fast, attackers can test billions of combinations per second on GPUs.</p>
+
+        <p>To defend against brute force attacks, systems rely on <strong>slow hashing algorithms</strong> such as bcrypt, Argon2, or PBKDF2,
+            which intentionally require significant computation time. Adding salts does not stop brute force, but it ensures that each password
+            must be cracked separately, greatly increasing the attacker's workload.</p>
+
+        <!-- DICTIONARY -->
         <h2>Dictionary Attacks</h2>
-        <p>Attackers use wordlists containing common passwords or leaked password databases to quickly test likely
-            matches.</p>
+        <p>A dictionary attack is more efficient than brute force because attackers do not try random combinations—they try
+            <strong>likely passwords first</strong>. These dictionaries often contain:</p>
 
+        <p>
+            • common passwords like “123456” or “password”<br>
+            • leaked passwords from previous data breaches<br>
+            • variations such as “password1!”, “welcome2024”, or “qwerty123”<br>
+        </p>
+
+        <p>Most users reuse passwords or choose predictable patterns. Attackers exploit this by starting with the most common passwords,
+            which frequently succeed. Dictionary attacks are extremely effective against weak password policies and are usually the first
+            method attempted when a password hash database is leaked.</p>
+
+        <p>Even users who think their passwords are “complex” often follow predictable patterns, making rule‑based dictionary attacks—
+            where attackers automatically add numbers, capital letters, or symbols—even more successful.</p>
+
+        <!-- RAINBOW TABLES -->
         <h2>Rainbow Table Attacks</h2>
-        <p>Rainbow tables store precomputed hashes for huge sets of passwords, allowing attackers to reverse hashes
-            rapidly — but only if the hash is unsalted.</p>
+        <div class="critical-visual fancy-diagram">
 
-        <h2>Hashcat</h2>
-        <p>Hashcat is a GPU-accelerated password cracking tool capable of trying billions of hashes per second. It
-            supports dictionary, hybrid, brute force, and rule-based attacks.</p>
+            <p>Rainbow tables are massive databases of <strong>precomputed hashes</strong>. Instead of hashing each guess during an attack,
+                attackers can simply look up a hash in these tables and instantly learn the matching password. This makes them extremely
+                dangerous—but only against <strong>unsalted</strong> hashes.</p>
 
+            <p>If two people use the same password, their unsalted hashes are identical, meaning a single lookup can break millions of 
+                accounts at once. This made rainbow tables a major threat during the early 2000s when many systems stored simple MD5 or SHA‑1 hashes.</p>
+
+            <div class="fancy">
+                <div class="icon-circle">dog</div>
+                <p>Hash → 06d80eb0</p>
+            </div>
+            <div class="connector">or</div>
+            <div class="fancy">
+                <div class="icon-circle">cat</div>
+                <p>Hash → 9f9d51bc</p>
+            </div>
+            <div class="connector">or</div>
+            <div class="fancy">
+                <div class="icon-circle">pig</div>
+                <p>Hash → d0763edaa</p>
+            </div>
+        </div>
+
+        <p>Rainbow tables are huge—some sets can exceed terabytes of storage—and creating them requires enormous computation time. This is
+            why they only work when the same hash function is used consistently and without salts. A single unique salt breaks the entire
+            rainbow table technique because every password would need its own table.</p>
+
+        <!-- HASHCAT -->
+        <h2>Hashcat and GPU Cracking</h2>
+        <p>Hashcat is a powerful password‑cracking tool capable of trying billions or even trillions of hashes per second using modern GPUs.
+            It's considered the industry standard for testing password strength and evaluating the security of hashing algorithms.</p>
+
+        <p>Hashcat supports multiple attack modes, including:</p>
+
+        <p>
+            • <strong>Brute force:</strong> testing every possible combination.<br>
+            • <strong>Dictionary:</strong> testing lists of passwords.<br>
+            • <strong>Rule‑based:</strong> applying mutations like “123”, capital letters, or symbol substitutions.<br>
+            • <strong>Hybrid:</strong> combining dictionary words with brute‑force patterns.<br>
+        </p>
+
+        <p>Hashcat demonstrates why password hashing must be intentionally slow. Hashing algorithms like MD5, SHA‑1, or SHA‑256 are so fast
+            that GPUs can compute them at incredible speed. By contrast, bcrypt or Argon2 are designed to resist GPU acceleration, making
+            each guess significantly slower and dramatically reducing attack feasibility.</p>
+
+        <!-- SALTING -->
         <h2>Salting</h2>
-        <p>Adding a unique, random salt to each password prevents rainbow table attacks and makes cracking much harder,
-            as each salted hash must be cracked individually.</p>
+        <div class="critical-visual fancy-diagram">
+
+            <p>A salt is a <strong>unique random value added to each password</strong> before hashing. The purpose is not to make the hash
+                harder to compute—it is to ensure the hash is unique even if two users choose the same password. Salting completely destroys
+                rainbow table attacks because precomputing hashes becomes impossible.</p>
+
+            <p>Even more importantly, salting forces attackers to crack each password individually. Without salts, cracking one password 
+                might reveal thousands more. With salts, every password requires its own brute‑force or dictionary attempt, making large‑scale
+                attacks significantly slower and more expensive.</p>
+
+            <div class="fancy">
+                <div class="icon-circle">dog</div>
+                <div class="plus">+</div>
+                <div class="salt-box">A92</div>
+                <div class="arrow">=</div>
+                <div class="hash-box highlight">a6f9c3e91</div>
+            </div>
+            <div class="connector">≠</div>
+            <div class="fancy">
+                <div class="icon-circle">dog</div>
+                <div class="plus">+</div>
+                <div class="salt-box">X33</div>
+                <div class="arrow">=</div>
+                <div class="hash-box highlight">91b8f2ac1</div>
+            </div>
+        </div>
+
+        <p>Salts alone are not enough—fast hashing functions are still vulnerable—but when combined with slow algorithms like bcrypt or
+            Argon2, they create a powerful defense that makes password cracking extremely time‑consuming and costly for attackers.</p>
+
+        <!-- SUMMARY -->
+        <h2>Summary</h2>
+        <p>Password hash attacks rely on speed, predictability, and the absence of modern protections. Brute force attacks test every 
+            possibility, dictionary attacks exploit predictable passwords, and rainbow tables break unsalted hashes instantly. Tools like 
+            Hashcat accelerate these attacks using GPUs capable of billions of operations per second. To defend against them, systems use 
+            salts, slow hashing functions, and strong password policies that greatly increase the difficulty and cost of cracking attempts.</p>
+
     </div>
 
 </body>

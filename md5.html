@@ -17,29 +17,39 @@
 
         <a href="index.html">Introduction</a>
         <a href="modern.html">Modern Hash Functions</a>
-        <a href="md5.html">MD5</a>
+        <a href="md5.html" class="active">MD5</a>
         <a href="sha.html">SHA Family</a>
         <a href="bcrypt.html">Bcrypt</a>
         <a href="attacks.html">Password Hash Attacks</a>
     </div>
 
-
     <div class="content">
         <section class="card" id="intro">
             <h1>MD5</h1>
-            <p>MD5 is a 128-bit digest hash function designed in 1992. It is <strong>fast</strong> and was widely used
-                for checksums, file integrity, and legacy authentication schemes. However, MD5 is
-                <strong>cryptographically broken</strong>: collision attacks are practical and several real-world
-                exploits have been demonstrated.
+
+            <p>
+                MD5 is a hash function that produces a 128-bit digest. It was introduced in the early nineties and was
+                quickly adopted across many systems because it was easy to implement and extremely fast. For a long
+                time, MD5 was considered reliable enough for verifying file integrity, generating checksums, and
+                helping authenticate users. As cryptanalysis improved, weaknesses in the design became more visible,
+                and eventually researchers created practical attacks that showed how easy it was to generate two
+                different messages with the same MD5 hash. At that point it was clear that MD5 could not be considered
+                secure anymore.
             </p>
 
+            <p>
+                Today MD5 still appears in older applications and in situations where there is no real risk of
+                tampering. Even so, any system that uses MD5 for security should be updated. Modern alternatives such as
+                SHA-256 or SHA-3 offer much stronger protection while still being efficient enough for real-world use.
+                Understanding how MD5 works and why it failed is useful because it highlights what makes a hash function
+                secure and why cryptographic standards evolve over time.
+            </p>
 
-            <div class="img-placeholder"> <!-- ADD IMAGE: md5-overview.png -->
-                <img src="images/MD5--Hashing.png" alt="md5 hashing">
+            <div class="critical-visual image-wrapper">
+                <img src="images/MD5--Hashing.png" alt="MD5 hashing diagram">
             </div>
 
-
-            <h2>Quick facts</h2>
+            <h2>Quick Facts</h2>
             <table>
                 <tr>
                     <th>Digest size</th>
@@ -47,78 +57,118 @@
                 </tr>
                 <tr>
                     <th>Design</th>
-                    <td>Merkle–Damgård (compression function)</td>
+                    <td>Merkle-Damgård structure</td>
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>Deprecated for security; OK for non-adversarial checksums</td>
+                    <td>Broken for security but still used for basic checksums</td>
                 </tr>
             </table>
         </section>
 
-        <p>Description of MD5, its use cases, and its known vulnerabilities.</p>
-
-
-        <h2>What is MD5?</h2>
-        <p>MD5 (Message Digest Algorithm 5) is a cryptographic hash function developed in 1991 by Ronald Rivest. It
-            produces a 128‑bit hash value typically represented as a 32‑character hexadecimal number. MD5 was widely
-            used for file integrity checking, digital signatures, and password hashing.</p>
-
+        <h2>What Is MD5?</h2>
+        <p>
+            MD5 stands for Message Digest Algorithm 5. It takes an input of any size and converts it into a fixed 32
+            character output written in hexadecimal. When it first appeared, MD5 was considered one of the most stable
+            and dependable tools for verifying data. It was used in digital signatures, password hashing, and even in
+            parts of the early SSL ecosystem. The goal of MD5 was to make it extremely unlikely for two different
+            inputs to produce the same digest. With time it became clear that this goal was not fully achieved.
+        </p>
 
         <h2>How MD5 Works</h2>
-        <p>MD5 processes input in 512‑bit blocks and outputs a fixed 128‑bit digest. The algorithm uses nonlinear
-            functions, modular addition, and bitwise operations across four main rounds. Although designed to be
-            collision‑resistant, weaknesses were found over time.</p>
-
+        <p>
+            MD5 splits the input into blocks, processes each block through a set of operations, and updates an internal
+            state until the entire message is consumed. These operations include modular addition and bitwise logical
+            functions. The final state becomes the output hash. The design was intended to make it hard to reverse the
+            process and recover the original message. Although clever at the time, the internal structure was not
+            strong enough to withstand modern cryptanalysis.
+        </p>
 
         <h2>Weaknesses of MD5</h2>
+        <p>
+            MD5 is vulnerable to several serious weaknesses. The most well known problem is that attackers can create
+            two different inputs that have the same digest. This completely breaks digital signatures, version control
+            trust, and almost any system that relies on the hash being unique. MD5 is also very fast to compute. While
+            this seemed like an advantage in the past, it now means that attackers can brute force huge numbers of
+            guesses per second using GPUs or cloud platforms.
+        </p>
+
         <ul>
-            <li><strong>Collision attacks:</strong> Two different inputs can produce the same hash.</li>
-            <li><strong>Preimage weaknesses:</strong> MD5 does not provide strong resistance against reverse hashing
-                attempts.</li>
-            <li><strong>Fast computation:</strong> Makes brute‑force and dictionary attacks significantly easier.</li>
+            <li><strong>Collision attacks:</strong> Different inputs can produce identical digests.</li>
+            <li><strong>Weak preimage protection:</strong> Easier than intended to reverse or guess inputs.</li>
+            <li><strong>Fast to compute:</strong> Makes password cracking more effective.</li>
         </ul>
 
-
         <h2>Famous MD5 Attacks</h2>
-        <p>One of the most famous attacks was created by Czech cryptologist <strong>doc. Vlastimil Klíma</strong>, who
-            demonstrated a practical method to generate MD5 collisions in minutes.</p>
-        <p>Other widely reported cases include malware authors using MD5 collisions to create fake certificates, and
-            researchers generating two PDFs with identical MD5 checksums.</p>
+        <p>
+            One of the most influential MD5 attacks was created by cryptologist Vlastimil Klima, who demonstrated how
+            collisions could be generated within minutes. This changed the perception of MD5 from "weak but usable" to
+            "completely unsafe". Other researchers later created two different PDF files that shared the exact same MD5
+            digest, proving that attackers could exploit this in real-world scenarios. Some malware authors even used
+            MD5 collisions to disguise malicious files as legitimate ones.
+        </p>
 
-
-        <h2>MD5 in Practice</h2>
-        <p>Today, MD5 is considered <strong>broken and unsuitable</strong> for any security‑related use. However, it is
-            still encountered in legacy systems, simple file checksums, or as part of malware signatures.</p>
-
+        <h2>MD5 in Practice Today</h2>
+        <p>
+            MD5 should not be used for anything involving security. However it is still common in places where the goal
+            is simply to detect accidental file corruption. Software mirrors often publish MD5 checksums so users can
+            verify that downloads completed correctly. This kind of use is safe because an attacker cannot change the
+            file during download. Anything that depends on protecting data, verifying authenticity, or storing
+            passwords must use a stronger hashing method.
+        </p>
 
         <h2>Hashcat Example</h2>
-        <p>You can test MD5 password cracking using Hashcat:</p>
-        <p>First we choose a password and hash it using MD5</p>
-        <img src="images/generating_hashes.png" alt="generating hashes">
-        <p>For this demo we will be using the second one. It is important to use the option <code>--potfile-disable</code> if you have cracked the hash before. Hashcat uses a memory and will search it first for a hash. Using this options ensures the hash is cracked again with the prefered attack.</p>
-        <p>After hashing I placed the hash in a file called <strong>md5.txt</strong></p>
-        <h3>Dictionary attack</h3>
-        <p>The first attack we will do on the md5 function is a dictionairy attack. It can be done using the following code: <code></code></p>
-        <img src="images/md5_cracked_dictionar.png" alt="">
-        <p><strong>-m 0</strong> = MD5 mode<br><strong>rockou.txt</strong> = dictionary used for the attack</p>
+        <p>
+            The following section shows practical demonstrations of cracking an MD5 hash with Hashcat. Before running
+            an attack we generate an MD5 hash and place it into a file called md5.txt. This ensures we always test the
+            same input and allows us to compare different attack strategies.
+        </p>
 
-        <h3>Bruteforce attack</h3>
-        <p>The second attack we will do on the md5 function is a brutefore attack. It can be done using the following code: <code></code></p>
-        <img src="images/md5_brute.png" alt="">
-        <p><strong>-m 0</strong> = MD5 mode<br><strong>-a 3</strong> = bruteforce / Mask attack<br><strong>?1?1?1?1?1?1?1?1</strong> = 8 lowercase characters + digits</p>
+        <div class="critical-visual image-wrapper">
+            <img src="images/generating_hashes.png" alt="Generating MD5 hashes">
+        </div>
 
-        <h3>Hybrid attack (Dictionary + Mask)</h3>
-        <p>The third attack is a combination of the previous 2. Here we will use a wordlist, in this case rockyou.txt. Instead of trying just the wordlist it will also add 2 digits at the end of each word. It can be done using the following code: <code></code></p>
-        <img src="images/md5_hybrid.png" alt="">
-        <p><strong>-m 0</strong> = MD5 mode<br><strong>-a 6</strong> = Hybrid attack<br><strong>?d?d</strong> = appends 2 digits</p>
+        <h3>Dictionary Attack</h3>
+        <p>
+            The dictionary attack uses a wordlist and tests each entry to see if the hash matches. This works well when
+            the password is based on a common word or phrase.
+        </p>
 
-        <h3>Rule-based Attack (Mutations)</h3>
-        <p>The last attack we will use is an extension of the hybrid attack. Instead of adding just one extra rule we can add a whole file of them. We chose to use the list that automatticaly comes with hashcat. It can be done using the following code: <code></code></p>
-        <img src="images/md5_rulebased.png" alt="">
-        <p><strong>-m 0</strong> = MD5 mode<br><strong>/usr/share/hashcat/rules/best64.rule</strong> = Path to rule file</p>
+        <div class="critical-visual image-wrapper">
+            <img src="images/md5_cracked_dictionar.png" alt="MD5 dictionary attack result">
+        </div>
 
+        <h3>Bruteforce Attack</h3>
+        <p>
+            Bruteforce attempts every possible combination of characters within a defined set. It guarantees success
+            but can take a long time when the password is large or complex.
+        </p>
 
+        <div class="critical-visual image-wrapper">
+            <img src="images/md5_brute.png" alt="MD5 brute force example">
+        </div>
+
+        <h3>Hybrid Attack</h3>
+        <p>
+            This method mixes a dictionary with additional characters, such as adding digits to the end of every word.
+            Many passwords are built this way, which makes hybrid attacks extremely effective.
+        </p>
+
+        <div class="critical-visual image-wrapper">
+            <img src="images/md5_hybrid.png" alt="MD5 hybrid attack example">
+        </div>
+
+        <h3>Rule Based Attack</h3>
+        <p>
+            Rule based attacks apply transformations to each word in a list, such as changing case, adding characters,
+            or reversing the word. This creates a much larger and more effective set of possible passwords.
+        </p>
+
+        <div class="critical-visual image-wrapper">
+            <img src="images/md5_rulebased.png" alt="MD5 rule based attack example">
+        </div>
+
+    </div>
 </body>
 
 </html>

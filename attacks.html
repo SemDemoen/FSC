@@ -48,7 +48,7 @@
 
         <!-- DICTIONARY -->
         <h2>Dictionary Attacks</h2>
-        <p>A dictionary attack is more efficient than brute force because attackers do not try random combinations—they try
+        <p>A dictionary attack is more efficient than brute force because attackers do not try random combinations, they try
             <strong>likely passwords first</strong>. These dictionaries often contain:</p>
 
         <p>
@@ -61,8 +61,8 @@
             which frequently succeed. Dictionary attacks are extremely effective against weak password policies and are usually the first
             method attempted when a password hash database is leaked.</p>
 
-        <p>Even users who think their passwords are “complex” often follow predictable patterns, making rule‑based dictionary attacks—
-            where attackers automatically add numbers, capital letters, or symbols—even more successful.</p>
+        <p>Even users who think their passwords are “complex” often follow predictable patterns, making rule‑based dictionary attacks,
+            where attackers automatically add numbers, capital letters, or symbols, even more successful.</p>
 
         <!-- RAINBOW TABLES -->
         <h2>Rainbow Table Attacks</h2>
@@ -70,7 +70,7 @@
 
             <p>Rainbow tables are massive databases of <strong>precomputed hashes</strong>. Instead of hashing each guess during an attack,
                 attackers can simply look up a hash in these tables and instantly learn the matching password. This makes them extremely
-                dangerous—but only against <strong>unsalted</strong> hashes.</p>
+                dangerous, but only against <strong>unsalted</strong> hashes.</p>
 
             <p>If two people use the same password, their unsalted hashes are identical, meaning a single lookup can break millions of 
                 accounts at once. This made rainbow tables a major threat during the early 2000s when many systems stored simple MD5 or SHA‑1 hashes.</p>
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <p>Rainbow tables are huge—some sets can exceed terabytes of storage—and creating them requires enormous computation time. This is
+        <p>Rainbow tables are huge, some sets can exceed terabytes of storage, and creating them requires enormous computation time. This is
             why they only work when the same hash function is used consistently and without salts. A single unique salt breaks the entire
             rainbow table technique because every password would need its own table.</p>
 
@@ -118,7 +118,7 @@
         <div class="critical-visual fancy-diagram">
 
             <p>A salt is a <strong>unique random value added to each password</strong> before hashing. The purpose is not to make the hash
-                harder to compute—it is to ensure the hash is unique even if two users choose the same password. Salting completely destroys
+                harder to compute, it is to ensure the hash is unique even if two users choose the same password. Salting completely destroys
                 rainbow table attacks because precomputing hashes becomes impossible.</p>
 
             <p>Even more importantly, salting forces attackers to crack each password individually. Without salts, cracking one password 
@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <p>Salts alone are not enough—fast hashing functions are still vulnerable—but when combined with slow algorithms like bcrypt or
+        <p>Salts alone are not enough, fast hashing functions are still vulnerable, but when combined with slow algorithms like bcrypt or
             Argon2, they create a powerful defense that makes password cracking extremely time‑consuming and costly for attackers.</p>
 
         <!-- SUMMARY -->

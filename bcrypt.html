@@ -24,34 +24,86 @@
 
 <div class="content">
     <h1>Bcrypt</h1>
+<p>Bcrypt is a modern password hashing function designed to be slow, adaptive, and resistant to brute-force and GPU attacks.</p>
 
-    <p>Bcrypt is a password hashing function designed to store passwords securely. Unlike general-purpose hash functions such as SHA or MD5, Bcrypt is intentionally slow and can be configured to be more computationally expensive over time, which protects against brute-force attacks.</p>
 
-    <h2>How Bcrypt Works</h2>
-    <p>Bcrypt is based on the Blowfish cipher. It applies multiple rounds of key expansion and encryption to produce a hash. Each password hash includes a <strong>salt</strong> and a <strong>cost factor</strong> that determines the number of rounds and thus the computation time.</p>
+<h2>What is Bcrypt?</h2>
+<p>Bcrypt is based on the Blowfish cipher and introduced in 1999. It is specifically designed for hashing passwords — not for file integrity, signatures, or general hashing. It includes a built-in salt and a configurable cost factor, making attacks exponentially harder as hardware improves.</p>
 
-    <h2>Key Features</h2>
-    <ul>
-        <li><strong>Salting:</strong> Each password has a unique salt, preventing rainbow table attacks.</li>
-        <li><strong>Configurable cost:</strong> The number of hashing rounds can be increased as hardware improves.</li>
-        <li><strong>Resistance to brute-force:</strong> Slower hashing makes large-scale attacks more difficult.</li>
-    </ul>
 
-    <h2>Usage</h2>
-    <p>Bcrypt is widely used in modern web applications for password storage. Common libraries exist for PHP, Python, JavaScript, and many other languages. A typical hashed password looks like this:</p>
-    <pre>$2b$12$N9qo8uLOickgx2ZMRZo5i.uJxY5a5IXrF2Gx0zFZ1Ijq5g2d5Vf1K</pre>
+<h2>Key Features</h2>
+<ul>
+<li><strong>Adaptive cost factor</strong> (work factor)</li>
+<li><strong>Built-in 128-bit salt</strong></li>
+<li><strong>Slow and intentionally CPU-heavy</strong> to resist brute-force attacks</li>
+<li><strong>Resistant to GPU/ASIC cracking</strong> due to memory and computation patterns</li>
+</ul>
 
-    <h2>Security Considerations</h2>
-    <ul>
-        <li>Always use a unique salt for each password.</li>
-        <li>Choose a sufficiently high cost factor based on your server capabilities.</li>
-        <li>Regularly update the cost factor as hardware improves.</li>
-    </ul>
 
-    <h2>Conclusion</h2>
-    <p>Bcrypt is currently considered a strong choice for password hashing due to its configurable cost, salting, and resistance to brute-force attacks. It is a practical solution for secure user authentication.</p>
+<h2>Bcrypt Hash Structure</h2>
+<p>A bcrypt hash typically looks like this:</p>
+<pre><code>$2b$12$EIXChE5pUx0DPKySx9/TeO3Fq2IYyqSiiMHDL/95B2S/bR5CV2NnO</code></pre>
+<ul>
+<li><strong>$2b$</strong> → Version</li>
+<li><strong>12</strong> → Cost factor (2^12 rounds)</li>
+<li><strong>Salt</strong> → 128 bits</li>
+<li><strong>Hash</strong> → 184 bits</li>
+</ul>
 
+<img src="images/bcrypt_format.png" alt="">
+
+
+<h2>Why Bcrypt Is Secure</h2>
+<p>Bcrypt slows down attackers by design. Increasing the cost factor makes each hash calculation exponentially more expensive. For example:</p>
+<pre><code>Cost 10 → 1,024 iterations
+Cost 12 → 4,096 iterations
+Cost 14 → 16,384 iterations</code></pre>
+<p>While MD5 or SHA-256 can be computed billions of times per second on GPUs, bcrypt may only manage a few hundred hashes per second — even on strong hardware.</p>
+
+
+<h2>Bcrypt vs Faster Hashes</h2>
+<table>
+<tr><th>Algorithm</th><th>Speed</th><th>Use Case</th></tr>
+<tr><td>MD5</td><td>Extremely fast</td><td>Legacy only</td></tr>
+<tr><td>SHA-256</td><td>Fast</td><td>Integrity, signatures</td></tr>
+<tr><td><strong>Bcrypt</strong></td><td><strong>Slow / Adaptive</strong></td><td><strong>Password hashing</strong></td></tr>
+</table>
+
+
+<h2>Hashcat & Bcrypt</h2>
+<p>Bcrypt is **very slow** to crack in Hashcat. GPU optimizations provide small benefits compared to other algorithms. The main problem is, that it is also very easy to crack, it just takes time.</p>
+
+
+<section class="card" id="lab">
+            <h2>Hashcat Example</h2>
+            <p>You can test Bcrypt password cracking using Hashcat:</p>
+            <p>First we choose a password and hash it using bcrypt</p>
+            <img src="images/generating_hashes.png" alt="generating hashes">
+            <p>For this demo we will be using the first one. It is important to use the option
+                <code>--potfile-disable</code> if you have cracked the hash before. Hashcat uses a memory and will
+                search it first for a hash. Using this options ensures the hash is cracked again with the prefered
+                attack.
+            </p>
+            <p>After hashing I placed the hash in a file called <strong>bcrypt.txt</strong>.
+                The attacks we will be using will be the same as for MD5. For that reason i wont explain every detail.
+                The only big difference is instead of using <code>-m 0</code> we will be using <code>-m 3200</code>
+            </p>
+
+            <h3>Dictionary attack</h3>
+            <img src="images/bcrypt_cracked_dictionar.png" alt="">
+
+            <h3>Bruteforce attack</h3>
+            <img src="images/bcrypt_brute.png" alt="">
+
+            <h3>Hybrid attack</h3>
+            <img src="images/bcrypt_hybrid.png" alt="">
+
+            <h3>Rule-based attack</h3>
+            <img src="images/bcrypt_rule.png" alt="">
+
+        </section>
 </div>
+
 
 </body>
 </html>

@@ -42,8 +42,13 @@
 
             <h2>Function Speed</h2>
             <p>
-                The following table outlines how commonly used hash functions compare in terms of computational speed.
-                Faster hash functions are more vulnerable to brute-force attacks when used for password storage.
+                The speed at which a hash function operates is an important factor to consider, especially when
+                dealing with password storage and verification. Hash functions like MD5 and SHA-1 are designed to be
+                very fast, which makes them efficient for general-purpose computing. However, their high speed can be
+                a disadvantage in security applications because attackers can attempt large numbers of guesses in a
+                short period of time using modern hardware such as GPUs and specialized chips. More recent hash
+                functions, such as SHA-256 and SHA-3, are slower and require more computational effort, which provides
+                better protection against brute-force attacks while maintaining strong cryptographic properties.
             </p>
 
             <table class="hash-table">
@@ -80,7 +85,15 @@
 
             <h2>Resistance to Attacks</h2>
             <p>
-                A comparison of the cryptographic strength of the same hash functions:
+                Hash functions differ significantly in their resistance to various cryptographic attacks. Collision
+                resistance, which ensures that it is extremely difficult to find two different inputs that produce the
+                same hash output, is a critical property for data integrity and authentication. Similarly, pre-image
+                resistance protects against attempts to reverse a hash and recover the original input. MD5 and SHA-1
+                are no longer considered secure because successful attacks have been demonstrated that compromise
+                these properties. On the other hand, SHA-256 provides strong resistance against both collisions and
+                pre-image attacks, making it suitable for most security applications. SHA-3, based on the Keccak
+                algorithm, offers even higher levels of security and incorporates modern design principles to resist
+                both current and future cryptanalytic attacks.
             </p>
 
             <table class="hash-table">
@@ -122,10 +135,22 @@
 
             <h2>Key Stretching</h2>
             <p>
-                <strong>Key Stretching</strong> is a technique that makes password hashing intentionally slow in order
-                to
-                resist brute-force attacks. Instead of hashing the password once, the algorithm performs
-                thousands or millions of iterations.
+                Key stretching is an essential technique used in password security to make brute-force attacks more
+                difficult. The idea is to deliberately increase the computational effort required to hash a password
+                by applying the hash function multiple times or using more complex algorithms. By doing so, even if an
+                attacker obtains a database of hashed passwords, attempting to guess each password becomes much more
+                time-consuming. This technique is particularly effective against attacks using modern hardware that
+                can perform billions of hash calculations per second.
+            </p>
+
+            <p>
+                There are several widely used algorithms for key stretching. PBKDF2 allows the number of iterations to
+                be adjusted according to the desired level of security and computing power available. Bcrypt adds a
+                salt to the password and includes a cost factor, which controls the number of iterations and makes
+                attacks slower. Scrypt is designed to be memory-intensive in addition to computationally expensive,
+                which helps resist attacks using specialized hardware such as GPUs and ASICs. Argon2 is the newest
+                standard and combines memory hardness and parallelism for highly secure password hashing, making it the
+                recommended choice for modern applications.
             </p>
 
             <p>Common key-stretching algorithms:</p>
@@ -136,8 +161,6 @@
                 <li><strong>Argon2</strong> – newest standard; highly recommended.</li>
             </ul>
         </section>
-
-
     </div>
 
 </body>

@@ -293,3 +293,36 @@ i {
     transform: scale(1.015);
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
+
+/* Tables */
+.hash-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+}
+
+.hash-table th,
+.hash-table td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.hash-table th {
+    background-color: #f3f3f3;
+    font-weight: 600;
+}
+
+.hash-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.hash-table tr:hover {
+    background-color: #f0f7ff;
+}
+
+/* List styling */
+.hash-section ul {
+    margin: 10px 0 20px 20px;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-title">
+            <span class="title-main">Security in Communications</span>
+            <span class="title-sub">Project</span>
+        </div>
+
+        <a href="index.html" class="active">Introduction</a>
+        <a href="modern.html">Modern Hash Functions</a>
+        <a href="md5.html">MD5</a>
+        <a href="sha.html">SHA Family</a>
+        <a href="bcrypt.html">Bcrypt</a>
+        <a href="attacks.html">Password Hash Attacks</a>
+        <a href="comparison.html">Comparison of hashing methods</a>
+    </div>
+
+    <div class="content">
+        <section id="hash-comparison" class="hash-section">
+            <h1>Comparison of Hash Functions & Key Stretching</h1>
+
+            <h2>Function Speed</h2>
+            <p>
+                The following table outlines how commonly used hash functions compare in terms of computational speed.
+                Faster hash functions are more vulnerable to brute-force attacks when used for password storage.
+            </p>
+
+            <table class="hash-table">
+                <thead>
+                    <tr>
+                        <th>Hash Function</th>
+                        <th>Relative Speed</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MD5</td>
+                        <td>Very Fast</td>
+                        <td>Optimized for speed; insecure today.</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-1</td>
+                        <td>Fast</td>
+                        <td>Broken due to collision attacks.</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-256</td>
+                        <td>Medium</td>
+                        <td>More secure, but still fast on GPUs.</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-3</td>
+                        <td>Medium–Slow</td>
+                        <td>Keccak-based; modern and secure.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Resistance to Attacks</h2>
+            <p>
+                A comparison of the cryptographic strength of the same hash functions:
+            </p>
+
+            <table class="hash-table">
+                <thead>
+                    <tr>
+                        <th>Hash Function</th>
+                        <th>Collision Resistance</th>
+                        <th>Pre-image Resistance</th>
+                        <th>Security Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MD5</td>
+                        <td>Broken</td>
+                        <td>Weak</td>
+                        <td>Not secure</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-1</td>
+                        <td>Broken</td>
+                        <td>Weak</td>
+                        <td>Not secure</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-256</td>
+                        <td>Strong</td>
+                        <td>Strong</td>
+                        <td>Secure</td>
+                    </tr>
+                    <tr>
+                        <td>SHA-3</td>
+                        <td>Very Strong</td>
+                        <td>Very Strong</td>
+                        <td>Highly secure</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Key Stretching</h2>
+            <p>
+                <strong>Key Stretching</strong> is a technique that makes password hashing intentionally slow in order
+                to
+                resist brute-force attacks. Instead of hashing the password once, the algorithm performs
+                thousands or millions of iterations.
+            </p>
+
+            <p>Common key-stretching algorithms:</p>
+            <ul>
+                <li><strong>PBKDF2</strong> – configurable iterations; widely used.</li>
+                <li><strong>bcrypt</strong> – includes salt + cost factor.</li>
+                <li><strong>scrypt</strong> – memory-hard; resists GPU/ASIC attacks.</li>
+                <li><strong>Argon2</strong> – newest standard; highly recommended.</li>
+            </ul>
+        </section>
+
+
+    </div>
+
+</body>
+
+</html>
